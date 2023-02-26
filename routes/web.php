@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -40,21 +39,19 @@ Route::post('/ejercicio2/b', function (Request $request) {
 });
 Route::post('/ejercicio2/c', function (Request $request) {
     $response = $request->all();
-    switch ($request->query->get('discount')) {
-        case 'SAVE5':
-            $response['price'] -= $response['price'] * 0.05;
-            $response['discount'] = 5;
-            break;
-        case 'SAVE10':
-            $response['price'] -= $response['price'] * 0.1;
-            $response['discount'] = 10;
-            break;
-        case 'SAVE15':
-            $response['price'] -= $response['price'] * 0.15;
-            $response['discount'] = 15;
-            break;
-        default:
-            $response['discount'] = 0;
-    }
+    $discount = getDiscount($request->query->get('discount'));
+    $response['price'] -= $response['price'] * ($discount / 100);
+    $response['discount'] = $discount;
     return response()->json($response);
 });
+
+
+function getDiscount($discount): int
+{
+    return match ($discount) {
+        'SAVE5' => 5,
+        'SAVE10' => 10,
+        'SAVE15' => 15,
+        default => 0,
+    };
+}

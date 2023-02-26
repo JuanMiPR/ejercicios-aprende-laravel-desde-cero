@@ -1,8 +1,5 @@
 <?php
 
-use App\Http\Controllers\ProductController;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,3 +26,14 @@ Route::get('/ejercicio1', function () {
 Route::post('/ejercicio1', function () {
     return "POST OK";
 });
+Route::patch('/ejercicio1', function () {
+    return "PATCH OK";
+});
+Route::put('/ejercicio1', function () {
+    return "PUT OK";
+});
+Route::delete('/ejercicio1', function () {
+    return "DELETE OK";
+});
+
+
